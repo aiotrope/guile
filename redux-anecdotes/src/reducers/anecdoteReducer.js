@@ -1,5 +1,4 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import { createAction, createReducer } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const anecdotesAtStart = [
   "If it hurts, do it more often",
@@ -22,51 +21,45 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject);
 
-export const createAnecdote = createAction(
-  "anecdotes/add",
-  function prepare(content) {
-    return {
-      payload: {
-        content,
-        id: getId(),
-        votes: 0,
+const anecdoteSlice = createSlice({
+  name: "anecdotes",
+  initialState,
+  reducers: {
+    createAnecdote: {
+      reducer: (state, action) => {
+        //console.log('ACTION', action)
+        return state.concat(action.payload);
       },
-    };
-  }
-);
-
-export const incrementVotes = createAction(
-  "anecdotes/increment",
-  function prepare(id) {
-    return {
-      payload: {
-        id,
+      prepare: (content) => {
+        const id = getId();
+        const votes = 0;
+        return { payload: { content, id, votes } };
       },
-    };
-  }
-);
+    },
+    incrementVotes: {
+      reducer: (state, action) => {
+        const id = action.payload.id;
+        const anecdoteToChange = state.find((a) => a.id === id);
 
-const anecdotes = createReducer(initialState, (builder) => {
-  builder
-    .addCase(createAnecdote, (state, action) => {
-      return state.concat(action.payload);
-    })
-    .addCase(incrementVotes, (state, action) => {
-      const id = action.payload.id;
-      const anecdoteToChange = state.find((a) => a.id === id);
+        const changeAnecdote = {
+          ...anecdoteToChange,
+          votes: anecdoteToChange.votes + 1,
+        };
 
-      const changeAnecdote = {
-        ...anecdoteToChange,
-        votes: anecdoteToChange.votes + 1,
-      };
-
-      console.log("state now", changeAnecdote);
-      return state.map((anecdote) =>
-        anecdote.id !== id ? anecdote : changeAnecdote
-      );
-    });
+        //console.log("state now", changeAnecdote);
+        return state.map((anecdote) =>
+          anecdote.id !== id ? anecdote : changeAnecdote
+        );
+      },
+      prepare: (id) => {
+        return { payload: { id } };
+      },
+    },
+  },
 });
 
-const anecdotesApp = combineReducers({ anecdotes });
+export const { createAnecdote, incrementVotes} = anecdoteSlice.actions
 
-export default anecdotesApp;
+export const selectAnecdotes = (state) => state.anecdotes
+
+export default anecdoteSlice.reducer;
