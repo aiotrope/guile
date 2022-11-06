@@ -1,13 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
-import { incrementVotes, selectAnecdotes } from "../reducers/anecdoteReducer";
+import {
+  incrementVotes,
+  selectAnecdotes,
+  initializeAnecdotes,
+  updateAnecdote,
+} from "../reducers/anecdoteReducer";
 import { createMessage } from "../reducers/notificationReducer";
 import { selectFilter } from "../reducers/filterReducer";
+import { useEffect } from "react";
 
 export const AnecdoteList = () => {
+  const dispatch = useDispatch();
+
   const anecdotes = [...useSelector(selectAnecdotes)].sort((a, b) => {
     return b.votes - a.votes;
   });
-  const dispatch = useDispatch();
 
   const handleClick = (id, content) => {
     dispatch(incrementVotes(id));
@@ -15,7 +22,10 @@ export const AnecdoteList = () => {
   };
 
   const filterAnecdotes = useSelector(selectFilter);
-  //console.log('FILTER:', filterAnecdotes)
+
+  useEffect(() => {
+    dispatch(initializeAnecdotes());
+  }, [dispatch]);
 
   return (
     <>

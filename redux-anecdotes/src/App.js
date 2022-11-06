@@ -5,7 +5,6 @@ import { Notification } from "./components/Notification";
 import { Filter } from "./components/Filter";
 
 const App = () => {
-  const [anecdote, setAnecdote] = useState("");
   const [searchAnecdote, setSearchAnecdote] = useState("");
 
   return (
@@ -17,7 +16,7 @@ const App = () => {
       />
       <Notification />
       <AnecdoteList />
-      <AnecdoteForm anecdote={anecdote} setAnecdote={setAnecdote} />
+      <AnecdoteForm />
     </div>
   );
 };

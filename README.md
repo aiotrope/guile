@@ -14,3 +14,5 @@ Date: 03.11.2022
 - [Solution for Exercise 6.3 - 6.8](https://github.com/aiotrope/guile/tree/6.3/redux-anecdotes)
 
 - [Solution for Exercise 6.9 - 6.12](https://github.com/aiotrope/guile/tree/6.9/redux-anecdotes)
+
+- [Solution for Exercise 6.13 - 6.14](https://github.com/aiotrope/guile/tree/6.13/redux-anecdotes)
