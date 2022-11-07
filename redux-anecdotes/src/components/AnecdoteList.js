@@ -5,7 +5,7 @@ import {
   initializeAnecdotes,
   updateAnecdote,
 } from "../reducers/anecdoteReducer";
-import { createMessage } from "../reducers/notificationReducer";
+import { setNotification } from "../reducers/notificationReducer";
 import { selectFilter } from "../reducers/filterReducer";
 import { useEffect } from "react";
 
@@ -16,9 +16,12 @@ export const AnecdoteList = () => {
     return b.votes - a.votes;
   });
 
-  const handleClick = (id, content) => {
+  const handleClick = async (id, content, votes) => {
     dispatch(incrementVotes(id));
-    dispatch(createMessage(`you voted '${content}'`));
+    dispatch(setNotification(`you voted '${content}'`));
+    const targetAnecdote = anecdotes.find((e) => e.id === id);
+    votes = targetAnecdote.votes + 1;
+    dispatch(updateAnecdote(id, content, votes));
   };
 
   const filterAnecdotes = useSelector(selectFilter);

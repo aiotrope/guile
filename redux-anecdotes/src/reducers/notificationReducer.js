@@ -1,24 +1,23 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-//const initialState = { message: "" };
-
-//const messages = []
-
-//const initialState = messages.map(asObject)
-
 const notificationSlice = createSlice({
   name: "message",
   initialState: [],
   reducers: {
-    createMessage: {
+    setNotification: {
       reducer: (state, action) => {
-        //console.log(action.payload.id)
-        state.push({ id: action.payload.id ,message: action.payload.message });
+        state.push({ id: action.payload.id, message: action.payload.message });
       },
       prepare: (message) => {
         //console.log(type)
-        const id = nanoid()
+        const id = nanoid();
         return { payload: { id, message } };
+      },
+    },
+
+    setMessage: {
+      reducer: (state, action) => {
+        return action.payload;
       },
     },
   },
@@ -26,7 +25,6 @@ const notificationSlice = createSlice({
 
 export const selectNotification = (state) => state.notifications;
 
-
-export const { createMessage } = notificationSlice.actions;
+export const { setNotification, setMessage } = notificationSlice.actions;
 
 export default notificationSlice.reducer;

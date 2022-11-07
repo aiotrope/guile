@@ -15,7 +15,7 @@ const create = async (content) => {
 
 const update = async (id, obj) => {
   const response = await axios.patch(`${baseUrl}/anecdotes/${id}`, obj);
-  return response;
+  return response.data;
 };
 
 const remove = async (id) => {

@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { selectNotification } from "../reducers/notificationReducer";
 
 export const Notification = () => {
-  const [notification, setNotification] = useState("");
+  const [alert, setAlert] = useState("");
   const [show, setShow] = useState(false);
 
-  const alert = useSelector(selectNotification);
+  const alerts = useSelector(selectNotification);
 
   const style = {
     border: "solid",
@@ -15,19 +15,19 @@ export const Notification = () => {
   };
 
   useEffect(() => {
-    if (alert.length > 0) {
-      const newAlert = [...alert];
+    if (alerts.length > 0) {
+      const newAlert = [...alerts];
       // get the last element in array
       const _alert = newAlert.at(-1);
-      setNotification(_alert);
+      setAlert(_alert);
       setShow(true);
       let timer;
       clearTimeout(timer);
       timer = setTimeout(() => {
         setShow(false);
-      }, 5000);
+      }, 6000);
     }
-  }, [alert]);
+  }, [alerts]);
 
-  return show ? <div style={style}>{notification.message}</div> : null;
+  return show ? <div style={style}>{alert.message}</div> : null;
 };
