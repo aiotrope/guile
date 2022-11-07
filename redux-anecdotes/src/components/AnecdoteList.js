@@ -1,34 +1,34 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux'
 import {
   incrementVotes,
   selectAnecdotes,
   initializeAnecdotes,
   updateAnecdote,
-} from "../reducers/anecdoteReducer";
-import { setNotification } from "../reducers/notificationReducer";
-import { selectFilter } from "../reducers/filterReducer";
-import { useEffect } from "react";
+} from '../reducers/anecdoteReducer'
+import { setNotification } from '../reducers/notificationReducer'
+import { selectFilter } from '../reducers/filterReducer'
+import { useEffect } from 'react'
 
 export const AnecdoteList = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const anecdotes = [...useSelector(selectAnecdotes)].sort((a, b) => {
-    return b.votes - a.votes;
-  });
+    return b.votes - a.votes
+  })
 
-  const handleClick = async (id, content, votes) => {
-    dispatch(incrementVotes(id));
-    dispatch(setNotification(`you voted '${content}'`));
-    const targetAnecdote = anecdotes.find((e) => e.id === id);
-    votes = targetAnecdote.votes + 1;
-    dispatch(updateAnecdote(id, content, votes));
-  };
+  const handleClick = (id, content, votes) => {
+    dispatch(incrementVotes(id))
+    dispatch(setNotification(`you voted '${content}'`))
+    const targetAnecdote = anecdotes.find((e) => e.id === id)
+    votes = targetAnecdote.votes + 1
+    dispatch(updateAnecdote(id, content, votes))
+  }
 
-  const filterAnecdotes = useSelector(selectFilter);
+  const filterAnecdotes = useSelector(selectFilter)
 
   useEffect(() => {
-    dispatch(initializeAnecdotes());
-  }, [dispatch]);
+    dispatch(initializeAnecdotes())
+  }, [dispatch])
 
   return (
     <>
@@ -48,5 +48,5 @@ export const AnecdoteList = () => {
           </div>
         ))}
     </>
-  );
-};
+  )
+}

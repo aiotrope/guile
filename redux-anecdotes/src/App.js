@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { AnecdoteForm } from "./components/AnecdoteForm";
-import { AnecdoteList } from "./components/AnecdoteList";
-import { Notification } from "./components/Notification";
-import { Filter } from "./components/Filter";
+import { useState } from 'react'
+import { AnecdoteForm } from './components/AnecdoteForm'
+import { AnecdoteList } from './components/AnecdoteList'
+import { Notification } from './components/Notification'
+import { Filter } from './components/Filter'
 
 const App = () => {
-  const [searchAnecdote, setSearchAnecdote] = useState("");
+  const [searchAnecdote, setSearchAnecdote] = useState('')
 
   return (
     <div>
@@ -18,7 +18,7 @@ const App = () => {
       <AnecdoteList />
       <AnecdoteForm />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
